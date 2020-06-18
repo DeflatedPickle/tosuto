@@ -3,9 +3,6 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.2.61'
 }
 
-group 'com.deflatedpickle'
-version '1.0.0'
-
 allprojects {
     repositories {
         jcenter()

@@ -1,0 +1,12 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm'
+
+    id 'application'
+}
+
+dependencies {
+    compile project(':library')
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+}

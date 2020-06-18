@@ -5,6 +5,8 @@ plugins {
     id 'application'
 }
 
+mainClassName = "Main"
+
 dependencies {
     compile project(':library')
 

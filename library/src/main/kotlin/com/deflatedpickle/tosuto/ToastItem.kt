@@ -7,19 +7,13 @@ import com.deflatedpickle.tosuto.constraints.FillHorizontal
 import com.deflatedpickle.tosuto.constraints.FillHorizontalFinishLine
 import com.deflatedpickle.tosuto.constraints.FillVerticalStickEast
 import com.deflatedpickle.tosuto.constraints.FinishLine
+import java.awt.Cursor
 import java.awt.GridBagLayout
 import java.awt.GridLayout
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import java.awt.event.MouseListener
-import javax.swing.BorderFactory
-import javax.swing.BoxLayout
-import javax.swing.Icon
-import javax.swing.ImageIcon
-import javax.swing.JButton
-import javax.swing.JLabel
-import javax.swing.JPanel
-import javax.swing.JSeparator
+import javax.swing.*
 
 /**
  * An item to be placed in a [ToastWindow]
@@ -83,6 +77,9 @@ class ToastItem(
                     })
                 }
                 else -> JLabel("What you did doesn't work")
+            }.apply {
+                foreground = UIManager.getColor("List.selectionBackground")
+                cursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)
             })
         }
     }

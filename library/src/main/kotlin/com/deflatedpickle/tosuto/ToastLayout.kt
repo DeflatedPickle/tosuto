@@ -11,7 +11,7 @@ import java.awt.Rectangle
  */
 // TODO: Use the preferred height instead of a single value
 class ToastLayout(
-    val spacing: Int = 2,
+    private val spacing: Int = 2,
     private val westMargin: Int = 2,
     private val northMargin: Int = 2,
     private val eastMargin: Int = 2,
@@ -43,7 +43,7 @@ class ToastLayout(
             acc + component.preferredSize.height + spacing
         })
 
-        for ((_, comp) in parent.components.withIndex()) {
+        for (comp in parent.components) {
             comp.bounds = Rectangle(
                 parent.insets.left + westMargin,
                 parent.height - height + northMargin,

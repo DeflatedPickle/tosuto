@@ -12,7 +12,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
         JFrame frame = new JFrame();
 
         Set<ToastButtonType> buttonSet = new HashSet<>(
@@ -39,14 +41,14 @@ public class Main {
         );
 
         // Add the toast window
-        ToastWindow toastWindow = new ToastWindow(frame, 140, 90);
+        ToastWindow toastWindow = new ToastWindow(frame, 140);
 
         for (ToastLevel toastLevel: ToastLevel.values()) {
             toastWindow.add(new ToastItem(
                     toastLevel,
                     ToastItem.Companion.getTransparentIcon(),
                     toastLevel.name(),
-                    "This is the content for it.",
+                    String.join("", Collections.nCopies(toastLevel.ordinal() + 1, "This is the content for it.")),
                     buttonSet,
                     commandSet
             ));
@@ -54,10 +56,10 @@ public class Main {
 
         toastWindow.setVisible(true);
 
-        frame.setSize(400, 400);
+        frame.setSize(400, 500);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-        MainKt.main();
+        // MainKt.main();
     }
 }

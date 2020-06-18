@@ -11,8 +11,7 @@ import java.awt.Rectangle
  */
 // TODO: Use the preferred height instead of a single value
 class ToastLayout(
-    private val toastHeight: Int = 80,
-    private val spacing: Int = 2,
+    val spacing: Int = 2,
     private val westMargin: Int = 2,
     private val northMargin: Int = 2,
     private val eastMargin: Int = 2,
@@ -40,13 +39,19 @@ class ToastLayout(
     )
 
     override fun layoutContainer(parent: Container) {
-        for ((i, comp) in parent.components.withIndex()) {
+        var height = parent.components.foldRight(0, { component, acc ->
+            acc + component.preferredSize.height + spacing
+        })
+
+        for ((_, comp) in parent.components.withIndex()) {
             comp.bounds = Rectangle(
                 parent.insets.left + westMargin,
-                parent.height - ((toastHeight + spacing) * (i + 1)) + northMargin,
+                parent.height - height + northMargin,
                 parent.width - parent.insets.right - eastMargin,
-                toastHeight - southMargin
+                comp.preferredSize.height - southMargin
             )
+
+            height -= comp.preferredSize.height
         }
     }
 

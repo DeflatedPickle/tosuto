@@ -5,12 +5,13 @@ import com.deflatedpickle.tosuto.ToastLevel
 import com.deflatedpickle.tosuto.ToastWindow
 import com.deflatedpickle.tosuto.command.ToastMultiCommand
 import com.deflatedpickle.tosuto.command.ToastSingleCommand
-import java.util.*
 import javax.swing.JFrame
 import javax.swing.JMenuItem
-import kotlin.collections.HashSet
+import javax.swing.UIManager
 
 fun main() {
+    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName())
+
     val frame = JFrame()
 
     val buttonSet = setOf(
@@ -19,7 +20,7 @@ fun main() {
 
     val actionsSet = setOf(JMenuItem("Dumb Action"))
 
-    val actionSet = setOf(
+    val commandSet = setOf(
         ToastSingleCommand("Fix...") {
             println("Fix invoked!")
         },
@@ -27,7 +28,7 @@ fun main() {
     )
 
     // Add the toast window
-    val toastWindow = ToastWindow(frame, 140, 90)
+    val toastWindow = ToastWindow(frame, 140)
 
     for (toastLevel in ToastLevel.values()) {
         toastWindow.add(
@@ -35,16 +36,16 @@ fun main() {
                 toastLevel,
                 transparentIcon,
                 toastLevel.name,
-                "This is the content for it.",
+                "This is the content for it.".repeat(toastLevel.ordinal + 1),
                 buttonSet,
-                actionSet
+                commandSet
             )
         )
     }
 
     toastWindow.isVisible = true
 
-    frame.setSize(400, 400)
+    frame.setSize(400, 500)
     frame.setLocationRelativeTo(null)
     frame.isVisible = true
 }

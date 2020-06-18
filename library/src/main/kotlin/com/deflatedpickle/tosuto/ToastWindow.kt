@@ -19,14 +19,13 @@ import javax.swing.JFrame
 class ToastWindow(
     @Suppress("MemberVisibilityCanBePrivate")
     val parent: Frame,
-    val toastWidth: Int = 140,
-    val toastHeight: Int = 60
+    val toastWidth: Int = 140
 ) : JDialog(parent) {
     init {
         this.isUndecorated = true
         this.background = Color(0, 0, 0, 0)
 
-        this.contentPane.layout = ToastLayout(toastHeight = this.toastHeight)
+        this.contentPane.layout = ToastLayout()
 
         object : WindowAdapter() {
             override fun windowIconified(e: WindowEvent) {
@@ -61,6 +60,11 @@ class ToastWindow(
 
             override fun componentResized(e: ComponentEvent) {
                 this@ToastWindow.size = Dimension(toastWidth, parent.height)
+                this@ToastWindow.location = Point(parent.x + parent.width - this@ToastWindow.width, parent.y)
+
+                this@ToastWindow.doLayout()
+                this@ToastWindow.repaint()
+                this@ToastWindow.revalidate()
             }
         })
     }

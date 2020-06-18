@@ -1,10 +1,17 @@
 package com.deflatedpickle.tosuto
 
+import com.deflatedpickle.tosuto.api.ToastCommand
+import com.deflatedpickle.tosuto.command.ToastMultiCommand
+import com.deflatedpickle.tosuto.command.ToastSingleCommand
 import com.deflatedpickle.tosuto.constraints.FillHorizontal
 import com.deflatedpickle.tosuto.constraints.FillHorizontalFinishLine
 import com.deflatedpickle.tosuto.constraints.FillVerticalStickEast
 import com.deflatedpickle.tosuto.constraints.FinishLine
 import java.awt.GridBagLayout
+import java.awt.GridLayout
+import java.awt.event.MouseAdapter
+import java.awt.event.MouseEvent
+import java.awt.event.MouseListener
 import javax.swing.BorderFactory
 import javax.swing.BoxLayout
 import javax.swing.Icon
@@ -13,7 +20,6 @@ import javax.swing.JButton
 import javax.swing.JLabel
 import javax.swing.JPanel
 import javax.swing.JSeparator
-import javax.swing.border.EmptyBorder
 
 /**
  * An item to be placed in a [ToastWindow]
@@ -24,7 +30,8 @@ class ToastItem(
     icon: Icon = transparentIcon,
     title: String = "",
     content: String = """""",
-    buttons: Set<ToastButton> = setOf(ToastButton.CLOSE)
+    buttons: Set<ToastButtonType> = setOf(ToastButtonType.CLOSE),
+    actions: Set<ToastCommand> = setOf()
 ) : JPanel() {
     companion object {
         val transparentIcon = ImageIcon()
@@ -42,7 +49,7 @@ class ToastItem(
         for (i in buttons) {
             when (i) {
                 // TODO: Replace the text with icons
-                ToastButton.CLOSE -> this.add(JButton("X").apply {
+                ToastButtonType.CLOSE -> this.add(JButton("X").apply {
                     addActionListener {
                         with(this@ToastItem.parent) {
                             remove(this@ToastItem)
@@ -52,6 +59,31 @@ class ToastItem(
                     }
                 })
             }
+        }
+    }
+
+    private val actionButtons = JPanel().apply {
+        this.layout = GridLayout(1, actions.size, 2, 2)
+
+        for (i in actions) {
+            this.add(when (i) {
+                is ToastSingleCommand -> JLabel(i.text).apply {
+                    addMouseListener(object : MouseAdapter() {
+                        override fun mouseClicked(e: MouseEvent) {
+                            i.command()
+                        }
+                    })
+                }
+                is ToastMultiCommand -> JLabel(i.text).apply {
+                    val label = this
+                    addMouseListener(object : MouseAdapter() {
+                        override fun mouseClicked(e: MouseEvent) {
+                            i.menu.show(label, e.x, e.y)
+                        }
+                    })
+                }
+                else -> JLabel("What you did doesn't work")
+            })
         }
     }
 
@@ -72,6 +104,7 @@ class ToastItem(
                 this.foreground = level.colour
             }, FillHorizontalFinishLine)
             this.add(this.contentLabel, FillHorizontalFinishLine)
+            this.add(this.actionButtons, FillHorizontalFinishLine)
         })
     }
 }

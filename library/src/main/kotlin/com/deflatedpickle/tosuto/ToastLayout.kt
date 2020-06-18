@@ -12,11 +12,11 @@ import java.awt.Rectangle
 // TODO: Use the preferred height instead of a single value
 class ToastLayout(
     private val toastHeight: Int = 80,
-    private val spacing: Int = 6,
-    private val westMargin: Int = 6,
-    private val northMargin: Int = 6,
-    private val eastMargin: Int = 6,
-    private val southMargin: Int = 6
+    private val spacing: Int = 2,
+    private val westMargin: Int = 2,
+    private val northMargin: Int = 2,
+    private val eastMargin: Int = 2,
+    private val southMargin: Int = 2
 ) : LayoutManager {
     @Suppress("unused")
     constructor(

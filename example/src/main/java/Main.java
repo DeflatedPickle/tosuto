@@ -1,7 +1,10 @@
-import com.deflatedpickle.tosuto.ToastButton;
+import com.deflatedpickle.tosuto.ToastButtonType;
 import com.deflatedpickle.tosuto.ToastItem;
 import com.deflatedpickle.tosuto.ToastLevel;
 import com.deflatedpickle.tosuto.ToastWindow;
+import com.deflatedpickle.tosuto.api.ToastCommand;
+import com.deflatedpickle.tosuto.command.ToastMultiCommand;
+import com.deflatedpickle.tosuto.command.ToastSingleCommand;
 
 import javax.swing.*;
 import java.util.Collections;
@@ -12,22 +15,40 @@ public class Main {
     public static void main(String[] args) {
         JFrame frame = new JFrame();
 
-        Set<ToastButton> buttonSet = new HashSet<>(
+        Set<ToastButtonType> buttonSet = new HashSet<>(
                 Collections.singletonList(
-                        ToastButton.CLOSE
+                        ToastButtonType.CLOSE
                 )
+        );
+
+        JMenuItem dumbAction = new JMenuItem("Dumb Action");
+        dumbAction.addActionListener(e -> System.out.println("Dumb action invoked!"));
+
+        Set<JMenuItem> actionsSet = new HashSet<>();
+        Collections.addAll(actionsSet,
+                dumbAction
+        );
+
+        Set<ToastCommand> commandSet = new HashSet<>();
+        Collections.addAll(commandSet,
+                new ToastMultiCommand("Actions", actionsSet),
+                new ToastSingleCommand("Fix...", () -> {
+                    System.out.println("Fix invoked!");
+                    return null;
+                })
         );
 
         // Add the toast window
         ToastWindow toastWindow = new ToastWindow(frame, 140, 90);
 
-        for (int i = 0; i < 3; i++) {
+        for (ToastLevel toastLevel: ToastLevel.values()) {
             toastWindow.add(new ToastItem(
-                    ToastLevel.INFO,
+                    toastLevel,
                     ToastItem.Companion.getTransparentIcon(),
-                    "Toast" + i,
+                    toastLevel.name(),
                     "This is the content for it.",
-                    buttonSet
+                    buttonSet,
+                    commandSet
             ));
         }
 
@@ -36,5 +57,7 @@ public class Main {
         frame.setSize(400, 400);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
+        MainKt.main();
     }
 }

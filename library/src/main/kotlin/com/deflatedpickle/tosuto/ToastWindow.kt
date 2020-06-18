@@ -2,6 +2,7 @@ package com.deflatedpickle.tosuto
 
 import java.awt.Color
 import java.awt.Dimension
+import java.awt.Frame
 import java.awt.Point
 import java.awt.event.ComponentAdapter
 import java.awt.event.ComponentEvent
@@ -17,7 +18,7 @@ import javax.swing.JFrame
 // TODO: There should be an anchor to hook this to
 class ToastWindow(
     @Suppress("MemberVisibilityCanBePrivate")
-    val parent: JFrame,
+    val parent: Frame,
     val toastWidth: Int = 140,
     val toastHeight: Int = 60
 ) : JDialog(parent) {

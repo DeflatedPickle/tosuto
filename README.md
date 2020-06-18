@@ -1,5 +1,8 @@
-<h1 align="center">
+<p align="center">
     <img src="https://raw.githubusercontent.com/DeflatedPickle/tosuto/master/.github/toastsuba.png">
+</p>
+
+<h1 align="center">
     tosuto
     <br>
     <p align="center">

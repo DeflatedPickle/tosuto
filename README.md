@@ -34,5 +34,5 @@
 </p>
                             
 <p align="center">
-    <img src="https://raw.githubusercontent.com/DeflatedPickle/tosuto/master/.github/images/tosuto-1.0.1.png">
+    <img src="https://raw.githubusercontent.com/DeflatedPickle/tosuto/master/.github/images/tosuto-1.1.1.png">
 </p>

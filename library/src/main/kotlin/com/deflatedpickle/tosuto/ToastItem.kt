@@ -1,3 +1,5 @@
+/* Copyright (c) 2020 DeflatedPickle under the MIT license */
+
 package com.deflatedpickle.tosuto
 
 import com.deflatedpickle.tosuto.api.ToastButtonType
@@ -14,12 +16,19 @@ import java.awt.GridBagLayout
 import java.awt.GridLayout
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
-import javax.swing.*
+import javax.swing.BorderFactory
+import javax.swing.BoxLayout
+import javax.swing.Icon
+import javax.swing.ImageIcon
+import javax.swing.JButton
+import javax.swing.JLabel
+import javax.swing.JPanel
+import javax.swing.JSeparator
+import javax.swing.UIManager
 
 /**
  * An item to be placed in a [ToastWindow]
  */
-// TODO: Add actions for the user to take
 class ToastItem(
     level: ToastLevel = ToastLevel.INFO,
     icon: Icon = transparentIcon,

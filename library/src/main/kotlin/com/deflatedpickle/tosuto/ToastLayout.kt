@@ -1,3 +1,5 @@
+/* Copyright (c) 2020 DeflatedPickle under the MIT license */
+
 package com.deflatedpickle.tosuto
 
 import com.deflatedpickle.tosuto.api.ToastItemAnchor
@@ -11,7 +13,6 @@ import java.awt.Rectangle
 /**
  * A custom layout manager to lay toasts out vertically, from the bottom
  */
-// TODO: Use the preferred height instead of a single value
 class ToastLayout(
     private val spacing: Int = 2,
     private val westMargin: Int = 2,

@@ -1,7 +1,8 @@
+/* Copyright (c) 2020 DeflatedPickle under the MIT license */
+
 package com.deflatedpickle.tosuto.constraints
 
 import java.awt.GridBagConstraints
-import java.awt.Insets
 
 object FillHorizontal : GridBagConstraints() {
     init {

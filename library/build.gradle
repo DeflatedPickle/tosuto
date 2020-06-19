@@ -1,5 +1,7 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm'
+
+    id 'com.diffplug.gradle.spotless' version '3.27.0'
 }
 
 group 'com.deflatedpickle'
@@ -8,4 +10,12 @@ version '1.5.0'
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+}
+
+spotless {
+    kotlin {
+        ktlint()
+
+        licenseHeader '/* Copyright (c) $YEAR DeflatedPickle under the MIT license */\n\n'
+    }
 }

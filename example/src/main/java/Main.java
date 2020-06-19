@@ -1,9 +1,6 @@
-import com.deflatedpickle.tosuto.api.ToastWindowAnchor;
-import com.deflatedpickle.tosuto.api.ToastButtonType;
+import com.deflatedpickle.tosuto.api.*;
 import com.deflatedpickle.tosuto.ToastItem;
-import com.deflatedpickle.tosuto.api.ToastLevel;
 import com.deflatedpickle.tosuto.ToastWindow;
-import com.deflatedpickle.tosuto.api.ToastCommand;
 import com.deflatedpickle.tosuto.command.ToastMultiCommand;
 import com.deflatedpickle.tosuto.command.ToastSingleCommand;
 
@@ -42,7 +39,7 @@ public class Main {
         );
 
         // Add the toast window
-        ToastWindow toastWindow = new ToastWindow(frame, 140, ToastWindowAnchor.EAST);
+        ToastWindow toastWindow = new ToastWindow(frame, 140, ToastWindowAnchor.EAST, ToastOrder.ITERATIVE);
 
         for (ToastLevel toastLevel: ToastLevel.values()) {
             toastWindow.add(new ToastItem(
@@ -60,7 +57,5 @@ public class Main {
         frame.setSize(400, 500);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-
-        // MainKt.main();
     }
 }

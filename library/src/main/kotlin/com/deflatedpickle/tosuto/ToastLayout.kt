@@ -1,5 +1,6 @@
 package com.deflatedpickle.tosuto
 
+import com.deflatedpickle.tosuto.api.ToastOrder
 import java.awt.Component
 import java.awt.Container
 import java.awt.Dimension
@@ -15,27 +16,32 @@ class ToastLayout(
     private val westMargin: Int = 2,
     private val northMargin: Int = 2,
     private val eastMargin: Int = 2,
-    private val southMargin: Int = 2
+    private val southMargin: Int = 2,
+    private val order: ToastOrder = ToastOrder.ITERATIVE
 ) : LayoutManager {
     @Suppress("unused")
     constructor(
-        margin: Int
+        margin: Int,
+        order: ToastOrder
     ) : this(
         westMargin = margin,
         northMargin = margin,
         eastMargin = margin,
-        southMargin = margin
+        southMargin = margin,
+        order = order
     )
 
     @Suppress("unused")
     constructor(
         horizontalMargin: Int,
-        verticalMargin: Int
+        verticalMargin: Int,
+        order: ToastOrder
     ) : this(
         westMargin = horizontalMargin,
         northMargin = verticalMargin,
         eastMargin = horizontalMargin,
-        southMargin = verticalMargin
+        southMargin = verticalMargin,
+        order = order
     )
 
     override fun layoutContainer(parent: Container) {
@@ -43,7 +49,12 @@ class ToastLayout(
             acc + component.preferredSize.height + spacing
         })
 
-        for (comp in parent.components) {
+        val components = when (this.order) {
+            ToastOrder.ITERATIVE -> parent.components
+            ToastOrder.REVERSE -> parent.components.reversedArray()
+        }
+
+        for (comp in components) {
             comp.bounds = Rectangle(
                 parent.insets.left + westMargin,
                 parent.height - height + northMargin,

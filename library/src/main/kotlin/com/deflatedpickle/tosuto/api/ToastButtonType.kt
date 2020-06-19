@@ -1,4 +1,4 @@
-package com.deflatedpickle.tosuto
+package com.deflatedpickle.tosuto.api
 
 /**
  * The buttons to use on the toast header

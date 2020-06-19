@@ -1,6 +1,8 @@
 package com.deflatedpickle.tosuto
 
+import com.deflatedpickle.tosuto.api.ToastButtonType
 import com.deflatedpickle.tosuto.api.ToastCommand
+import com.deflatedpickle.tosuto.api.ToastLevel
 import com.deflatedpickle.tosuto.command.ToastMultiCommand
 import com.deflatedpickle.tosuto.command.ToastSingleCommand
 import com.deflatedpickle.tosuto.constraints.FillHorizontal
@@ -12,7 +14,6 @@ import java.awt.GridBagLayout
 import java.awt.GridLayout
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
-import java.awt.event.MouseListener
 import javax.swing.*
 
 /**

@@ -1,5 +1,6 @@
 package com.deflatedpickle.tosuto
 
+import com.deflatedpickle.tosuto.api.ToastWindowAnchor
 import java.awt.Color
 import java.awt.Dimension
 import java.awt.Frame
@@ -19,7 +20,8 @@ import javax.swing.JFrame
 class ToastWindow(
     @Suppress("MemberVisibilityCanBePrivate")
     val parent: Frame,
-    val toastWidth: Int = 140
+    val toastWidth: Int = 140,
+    val windowAnchor: ToastWindowAnchor = ToastWindowAnchor.EAST
 ) : JDialog(parent) {
     init {
         this.isUndecorated = true
@@ -55,12 +57,16 @@ class ToastWindow(
 
         this.parent.addComponentListener(object : ComponentAdapter() {
             override fun componentMoved(e: ComponentEvent) {
-                this@ToastWindow.location = Point(parent.x + parent.width - this@ToastWindow.width, parent.y)
+                this@ToastWindow.location = when (this@ToastWindow.windowAnchor) {
+                    ToastWindowAnchor.CENTRE -> Point(parent.x + parent.width / 2 - this@ToastWindow.width / 2, parent.y)
+                    ToastWindowAnchor.EAST -> Point(parent.x + parent.width - this@ToastWindow.width, parent.y)
+                    ToastWindowAnchor.WEST -> Point(parent.x, parent.y)
+                }
             }
 
             override fun componentResized(e: ComponentEvent) {
                 this@ToastWindow.size = Dimension(toastWidth, parent.height)
-                this@ToastWindow.location = Point(parent.x + parent.width - this@ToastWindow.width, parent.y)
+                this.componentMoved(e)
 
                 this@ToastWindow.doLayout()
                 this@ToastWindow.repaint()

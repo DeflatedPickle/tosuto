@@ -1,4 +1,4 @@
-package com.deflatedpickle.tosuto
+package com.deflatedpickle.tosuto.api
 
 import java.awt.Color
 

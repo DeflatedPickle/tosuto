@@ -1,6 +1,7 @@
-import com.deflatedpickle.tosuto.ToastButtonType;
+import com.deflatedpickle.tosuto.api.ToastWindowAnchor;
+import com.deflatedpickle.tosuto.api.ToastButtonType;
 import com.deflatedpickle.tosuto.ToastItem;
-import com.deflatedpickle.tosuto.ToastLevel;
+import com.deflatedpickle.tosuto.api.ToastLevel;
 import com.deflatedpickle.tosuto.ToastWindow;
 import com.deflatedpickle.tosuto.api.ToastCommand;
 import com.deflatedpickle.tosuto.command.ToastMultiCommand;
@@ -33,15 +34,15 @@ public class Main {
 
         Set<ToastCommand> commandSet = new HashSet<>();
         Collections.addAll(commandSet,
-                new ToastMultiCommand("Actions", actionsSet),
                 new ToastSingleCommand("Fix...", () -> {
                     System.out.println("Fix invoked!");
                     return null;
-                })
+                }),
+                new ToastMultiCommand("Actions", actionsSet)
         );
 
         // Add the toast window
-        ToastWindow toastWindow = new ToastWindow(frame, 140);
+        ToastWindow toastWindow = new ToastWindow(frame, 140, ToastWindowAnchor.EAST);
 
         for (ToastLevel toastLevel: ToastLevel.values()) {
             toastWindow.add(new ToastItem(

@@ -1,7 +1,7 @@
-import com.deflatedpickle.tosuto.ToastButtonType
+import com.deflatedpickle.tosuto.api.ToastButtonType
 import com.deflatedpickle.tosuto.ToastItem
 import com.deflatedpickle.tosuto.ToastItem.Companion.transparentIcon
-import com.deflatedpickle.tosuto.ToastLevel
+import com.deflatedpickle.tosuto.api.ToastLevel
 import com.deflatedpickle.tosuto.ToastWindow
 import com.deflatedpickle.tosuto.command.ToastMultiCommand
 import com.deflatedpickle.tosuto.command.ToastSingleCommand

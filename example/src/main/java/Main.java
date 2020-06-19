@@ -39,13 +39,12 @@ public class Main {
         );
 
         // Add the toast window
-        ToastWindow toastWindow = new ToastWindow(frame, 140, ToastOrder.ITERATIVE, ToastItemAnchor.NORTH, ToastWindowAnchor.EAST);
+        ToastWindow toastWindow = new ToastWindow(frame, 140, ToastOrder.ITERATIVE, ToastItemAnchor.SOUTH, ToastWindowAnchor.EAST);
 
-        for (ToastLevel toastLevel: ToastLevel.values()) {
+        for (ToastLevel toastLevel : ToastLevel.values()) {
             toastWindow.add(new ToastItem(
                     toastLevel,
-                    ToastItem.Companion.getTransparentIcon(),
-                    toastLevel.name(),
+                    toastLevel.name().substring(0, 1).concat(toastLevel.name().substring(1).toLowerCase()),
                     String.join("", Collections.nCopies(toastLevel.ordinal() + 1, "This is the content for it.")),
                     buttonSet,
                     commandSet

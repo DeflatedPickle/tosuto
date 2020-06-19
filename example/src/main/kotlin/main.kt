@@ -1,6 +1,5 @@
 import com.deflatedpickle.tosuto.api.ToastButtonType
 import com.deflatedpickle.tosuto.ToastItem
-import com.deflatedpickle.tosuto.ToastItem.Companion.transparentIcon
 import com.deflatedpickle.tosuto.api.ToastLevel
 import com.deflatedpickle.tosuto.ToastWindow
 import com.deflatedpickle.tosuto.command.ToastMultiCommand
@@ -34,7 +33,6 @@ fun main() {
         toastWindow.add(
             ToastItem(
                 toastLevel,
-                transparentIcon,
                 toastLevel.name,
                 "This is the content for it.".repeat(toastLevel.ordinal + 1),
                 buttonSet,

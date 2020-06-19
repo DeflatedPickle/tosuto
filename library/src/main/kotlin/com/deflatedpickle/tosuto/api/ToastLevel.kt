@@ -3,6 +3,8 @@
 package com.deflatedpickle.tosuto.api
 
 import java.awt.Color
+import javax.swing.Icon
+import javax.swing.UIManager
 
 /**
  * Levels of severity, with colours, to use for [ToastItem]s
@@ -11,10 +13,11 @@ import java.awt.Color
  */
 @Suppress("unused")
 enum class ToastLevel(
-    val colour: Color
+    val colour: Color,
+    val icon: Icon
 ) {
-    DEBUG(Color.CYAN),
-    INFO(Color.GREEN),
-    WARNING(Color.ORANGE),
-    ERROR(Color.RED)
+    DEBUG(Color.CYAN, UIManager.getIcon("OptionPane.questionIcon")),
+    INFO(Color.GREEN, UIManager.getIcon("OptionPane.informationIcon")),
+    WARNING(Color.ORANGE, UIManager.getIcon("OptionPane.warningIcon")),
+    ERROR(Color.RED, UIManager.getIcon("OptionPane.errorIcon"))
 }

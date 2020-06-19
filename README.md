@@ -11,7 +11,7 @@
     </p>
 </h1>
 
-<h4 align="center">Toast notifcations for Swing</h4>
+<h4 align="center">Toast notifications for Swing</h4>
  
 <p align="center">
     <a href="https://github.com/DeflatedPickle/tosuto/commits/master"><img src="https://img.shields.io/github/last-commit/DeflatedPickle/tosuto.svg"></a>

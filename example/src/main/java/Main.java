@@ -39,7 +39,7 @@ public class Main {
         );
 
         // Add the toast window
-        ToastWindow toastWindow = new ToastWindow(frame, 140, ToastWindowAnchor.EAST, ToastOrder.ITERATIVE);
+        ToastWindow toastWindow = new ToastWindow(frame, 140, ToastOrder.ITERATIVE, ToastItemAnchor.NORTH, ToastWindowAnchor.EAST);
 
         for (ToastLevel toastLevel: ToastLevel.values()) {
             toastWindow.add(new ToastItem(

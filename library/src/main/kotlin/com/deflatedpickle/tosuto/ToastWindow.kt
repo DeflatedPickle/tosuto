@@ -1,5 +1,6 @@
 package com.deflatedpickle.tosuto
 
+import com.deflatedpickle.tosuto.api.ToastItemAnchor
 import com.deflatedpickle.tosuto.api.ToastOrder
 import com.deflatedpickle.tosuto.api.ToastWindowAnchor
 import java.awt.Color
@@ -22,14 +23,15 @@ class ToastWindow(
     @Suppress("MemberVisibilityCanBePrivate")
     val parent: Frame,
     val toastWidth: Int = 140,
-    val windowAnchor: ToastWindowAnchor = ToastWindowAnchor.EAST,
-    val toastOrder: ToastOrder = ToastOrder.ITERATIVE
+    val toastOrder: ToastOrder = ToastOrder.ITERATIVE,
+    val toastAnchor: ToastItemAnchor = ToastItemAnchor.SOUTH,
+    val windowAnchor: ToastWindowAnchor = ToastWindowAnchor.EAST
 ) : JDialog(parent) {
     init {
         this.isUndecorated = true
         this.background = Color(0, 0, 0, 0)
 
-        this.contentPane.layout = ToastLayout(order = this.toastOrder)
+        this.contentPane.layout = ToastLayout(order = this.toastOrder, anchor = this.toastAnchor)
 
         object : WindowAdapter() {
             override fun windowIconified(e: WindowEvent) {

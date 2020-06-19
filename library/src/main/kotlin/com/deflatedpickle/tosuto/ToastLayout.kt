@@ -1,5 +1,6 @@
 package com.deflatedpickle.tosuto
 
+import com.deflatedpickle.tosuto.api.ToastItemAnchor
 import com.deflatedpickle.tosuto.api.ToastOrder
 import java.awt.Component
 import java.awt.Container
@@ -17,7 +18,8 @@ class ToastLayout(
     private val northMargin: Int = 2,
     private val eastMargin: Int = 2,
     private val southMargin: Int = 2,
-    private val order: ToastOrder = ToastOrder.ITERATIVE
+    private val order: ToastOrder = ToastOrder.ITERATIVE,
+    private val anchor: ToastItemAnchor = ToastItemAnchor.SOUTH
 ) : LayoutManager {
     @Suppress("unused")
     constructor(
@@ -45,9 +47,12 @@ class ToastLayout(
     )
 
     override fun layoutContainer(parent: Container) {
-        var height = parent.components.foldRight(0, { component, acc ->
-            acc + component.preferredSize.height + spacing
-        })
+        var height = when (this.anchor) {
+            ToastItemAnchor.NORTH -> 0
+            ToastItemAnchor.SOUTH -> parent.components.foldRight(0, { component, acc ->
+                acc + component.preferredSize.height + spacing
+            })
+        }
 
         val components = when (this.order) {
             ToastOrder.ITERATIVE -> parent.components
@@ -57,12 +62,20 @@ class ToastLayout(
         for (comp in components) {
             comp.bounds = Rectangle(
                 parent.insets.left + westMargin,
-                parent.height - height + northMargin,
+                when (this.anchor) {
+                    ToastItemAnchor.NORTH -> height
+                    ToastItemAnchor.SOUTH -> parent.height - height
+                } + northMargin,
                 parent.width - parent.insets.right - eastMargin,
                 comp.preferredSize.height - southMargin
             )
 
-            height -= comp.preferredSize.height
+            when (this.anchor) {
+                ToastItemAnchor.NORTH ->
+                    height += comp.preferredSize.height
+                ToastItemAnchor.SOUTH ->
+                    height -= comp.preferredSize.height
+            }
         }
     }
 

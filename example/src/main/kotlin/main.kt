@@ -28,7 +28,7 @@ fun main() {
     )
 
     // Add the toast window
-    val toastWindow = ToastWindow(frame, 140)
+    val toastWindow = ToastWindow(frame)
 
     for (toastLevel in ToastLevel.values()) {
         toastWindow.add(

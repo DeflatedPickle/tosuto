@@ -14,13 +14,12 @@ import java.awt.Rectangle
  * A custom layout manager to lay toasts out vertically, from the bottom
  */
 class ToastLayout(
-    private val spacing: Int = 2,
     private val westMargin: Int = 2,
     private val northMargin: Int = 2,
     private val eastMargin: Int = 2,
     private val southMargin: Int = 2,
-    private val order: ToastOrder = ToastOrder.ITERATIVE,
-    private val anchor: ToastItemAnchor = ToastItemAnchor.SOUTH
+    var order: ToastOrder = ToastOrder.ITERATIVE,
+    var anchor: ToastItemAnchor = ToastItemAnchor.SOUTH
 ) : LayoutManager {
     @Suppress("unused")
     constructor(
@@ -51,7 +50,7 @@ class ToastLayout(
         var height = when (this.anchor) {
             ToastItemAnchor.NORTH -> 0
             ToastItemAnchor.SOUTH -> parent.components.foldRight(0, { component, acc ->
-                acc + component.preferredSize.height + spacing
+                acc + component.preferredSize.height
             })
         }
 

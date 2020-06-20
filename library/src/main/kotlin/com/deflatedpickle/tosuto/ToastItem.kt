@@ -5,6 +5,7 @@ package com.deflatedpickle.tosuto
 import com.deflatedpickle.tosuto.action.ToastAction
 import com.deflatedpickle.tosuto.api.ToastButtonType
 import com.deflatedpickle.tosuto.api.ToastLevel
+import com.deflatedpickle.tosuto.constraints.FillBothFinishLine
 import com.deflatedpickle.tosuto.constraints.FillHorizontal
 import com.deflatedpickle.tosuto.constraints.FillHorizontalFinishLine
 import com.deflatedpickle.tosuto.constraints.FillVerticalStickEast
@@ -101,8 +102,8 @@ class ToastItem(
             this.add(JSeparator(JSeparator.HORIZONTAL).apply {
                 this.background = level.colour.darker()
                 this.foreground = level.colour
-            }, FillHorizontalFinishLine)
-            this.add(this.contentLabel, FillHorizontalFinishLine)
+            }, FillBothFinishLine)
+            this.add(this.contentLabel, FillBothFinishLine)
             this.add(this.actionButtons, FillHorizontalFinishLine)
         })
     }

@@ -1,22 +1,16 @@
 plugins {
-    id 'java'
     id 'org.jetbrains.kotlin.jvm'
 
     id 'application'
 }
 
 dependencies {
-    compile project(':library')
-
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+    compile project(':library')
 }
 
-task runJava(type: JavaExec) {
-    classpath = sourceSets.main.runtimeClasspath
-    main = "Main"
-}
-
-task runKotlin(type: JavaExec) {
+task runDemo(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     main = "MainKt"
 }

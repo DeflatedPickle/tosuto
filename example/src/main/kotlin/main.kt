@@ -8,10 +8,11 @@ import javax.swing.JFrame
 import javax.swing.JMenuItem
 import javax.swing.UIManager
 
-fun main() {
+fun main(args: Array<String>) {
     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName())
 
     val frame = JFrame()
+    frame.title = "Kotlin Example"
 
     val buttonSet = listOf(
         ToastButtonType.CLOSE

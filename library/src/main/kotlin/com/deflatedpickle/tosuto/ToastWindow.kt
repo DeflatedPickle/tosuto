@@ -23,11 +23,12 @@ import javax.swing.JFrame
 class ToastWindow(
     @Suppress("MemberVisibilityCanBePrivate")
     val parent: Frame,
-    val toastWidth: Int = 140,
-    val toastOrder: ToastOrder = ToastOrder.ITERATIVE,
-    val toastAnchor: ToastItemAnchor = ToastItemAnchor.SOUTH,
-    val windowAnchor: ToastWindowAnchor = ToastWindowAnchor.EAST
+    toastWidth: Int = 140,
+    toastOrder: ToastOrder = ToastOrder.ITERATIVE,
+    toastAnchor: ToastItemAnchor = ToastItemAnchor.SOUTH,
+    windowAnchor: ToastWindowAnchor = ToastWindowAnchor.EAST
 ) : JDialog(parent) {
+    @Suppress("unused")
     constructor(
         parent: Frame
     ) : this(
@@ -37,6 +38,38 @@ class ToastWindow(
         toastAnchor = ToastItemAnchor.SOUTH,
         windowAnchor = ToastWindowAnchor.EAST
     )
+
+    var toastWidth = toastWidth
+        set(value) {
+            this.locateToParent()
+            this.size = Dimension(value, parent.height)
+            this.refresh()
+
+            field = value
+        }
+
+    var toastOrder = toastOrder
+        set(value) {
+            (this.contentPane.layout as ToastLayout).order = value
+            this.refresh()
+
+            field = value
+        }
+
+    var toastAnchor = toastAnchor
+        set(value) {
+            (this.contentPane.layout as ToastLayout).anchor = value
+            this.refresh()
+
+            field = value
+        }
+
+    var windowAnchor = windowAnchor
+        set(value) {
+            field = value
+
+            this.locateToParent()
+        }
 
     init {
         this.isUndecorated = true
@@ -72,21 +105,47 @@ class ToastWindow(
 
         this.parent.addComponentListener(object : ComponentAdapter() {
             override fun componentMoved(e: ComponentEvent) {
-                this@ToastWindow.location = when (this@ToastWindow.windowAnchor) {
-                    ToastWindowAnchor.CENTRE -> Point(parent.x + parent.width / 2 - this@ToastWindow.width / 2, parent.y)
-                    ToastWindowAnchor.EAST -> Point(parent.x + parent.width - this@ToastWindow.width, parent.y)
-                    ToastWindowAnchor.WEST -> Point(parent.x, parent.y)
-                }
+                locateToParent()
             }
 
             override fun componentResized(e: ComponentEvent) {
-                this@ToastWindow.size = Dimension(toastWidth, parent.height)
-                this.componentMoved(e)
+                this@ToastWindow.size = Dimension(this@ToastWindow.toastWidth, parent.height)
+                locateToParent()
 
-                this@ToastWindow.doLayout()
-                this@ToastWindow.repaint()
-                this@ToastWindow.revalidate()
+                this@ToastWindow.refresh()
             }
         })
+    }
+
+    private fun refresh() {
+        this.contentPane.doLayout()
+        this.contentPane.repaint()
+        this.contentPane.revalidate()
+    }
+
+    @Suppress("unused")
+    fun addToast(toast: ToastItem) {
+        this.add(toast)
+        this.refresh()
+    }
+
+    @Suppress("unused")
+    fun removeToast(toast: ToastItem) {
+        this.remove(toast)
+        this.refresh()
+    }
+
+    @Suppress("unused")
+    fun removeToast(toastIndex: Int) {
+        this.remove(toastIndex)
+        this.refresh()
+    }
+
+    private fun locateToParent() {
+        this@ToastWindow.location = when (this@ToastWindow.windowAnchor) {
+            ToastWindowAnchor.CENTRE -> Point(parent.x + parent.width / 2 - this@ToastWindow.width / 2, parent.y)
+            ToastWindowAnchor.EAST -> Point(parent.x + parent.width - this@ToastWindow.width, parent.y)
+            ToastWindowAnchor.WEST -> Point(parent.x, parent.y)
+        }
     }
 }

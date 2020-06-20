@@ -1,9 +1,9 @@
-import com.deflatedpickle.tosuto.api.ToastButtonType
 import com.deflatedpickle.tosuto.ToastItem
-import com.deflatedpickle.tosuto.api.ToastLevel
+import com.deflatedpickle.tosuto.action.ToastMultiAction
+import com.deflatedpickle.tosuto.action.ToastSingleAction
 import com.deflatedpickle.tosuto.ToastWindow
-import com.deflatedpickle.tosuto.command.ToastMultiCommand
-import com.deflatedpickle.tosuto.command.ToastSingleCommand
+import com.deflatedpickle.tosuto.api.ToastButtonType
+import com.deflatedpickle.tosuto.api.ToastLevel
 import javax.swing.JFrame
 import javax.swing.JMenuItem
 import javax.swing.UIManager
@@ -13,17 +13,8 @@ fun main() {
 
     val frame = JFrame()
 
-    val buttonSet = setOf(
+    val buttonSet = listOf(
         ToastButtonType.CLOSE
-    )
-
-    val actionsSet = setOf(JMenuItem("Dumb Action"))
-
-    val commandSet = setOf(
-        ToastSingleCommand("Fix...") {
-            println("Fix invoked!")
-        },
-        ToastMultiCommand("Actions", actionsSet)
     )
 
     // Add the toast window
@@ -36,7 +27,15 @@ fun main() {
                 toastLevel.name,
                 "This is the content for it.".repeat(toastLevel.ordinal + 1),
                 buttonSet,
-                commandSet
+                listOf(
+                    ToastSingleAction("Fix...", null) {
+                        println("Fix invoked!")
+                    },
+                    ToastMultiAction(
+                        "Actions",
+                        listOf(JMenuItem("Dumb Action"))
+                    )
+                )
             )
         )
     }

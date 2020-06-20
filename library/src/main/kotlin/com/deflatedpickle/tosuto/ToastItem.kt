@@ -2,23 +2,17 @@
 
 package com.deflatedpickle.tosuto
 
+import com.deflatedpickle.tosuto.action.ToastAction
 import com.deflatedpickle.tosuto.api.ToastButtonType
-import com.deflatedpickle.tosuto.api.ToastCommand
 import com.deflatedpickle.tosuto.api.ToastLevel
-import com.deflatedpickle.tosuto.command.ToastMultiCommand
-import com.deflatedpickle.tosuto.command.ToastSingleCommand
 import com.deflatedpickle.tosuto.constraints.FillHorizontal
 import com.deflatedpickle.tosuto.constraints.FillHorizontalFinishLine
 import com.deflatedpickle.tosuto.constraints.FillVerticalStickEast
 import com.deflatedpickle.tosuto.constraints.FinishLine
-import java.awt.Cursor
 import java.awt.Dimension
 import java.awt.GridBagLayout
 import java.awt.GridLayout
 import java.awt.Image
-import java.awt.event.MouseAdapter
-import java.awt.event.MouseEvent
-import java.awt.font.TextAttribute
 import javax.swing.BorderFactory
 import javax.swing.BoxLayout
 import javax.swing.ImageIcon
@@ -26,7 +20,6 @@ import javax.swing.JButton
 import javax.swing.JLabel
 import javax.swing.JPanel
 import javax.swing.JSeparator
-import javax.swing.SwingConstants
 import javax.swing.UIManager
 import javax.swing.border.EmptyBorder
 
@@ -37,8 +30,8 @@ class ToastItem(
     level: ToastLevel = ToastLevel.INFO,
     title: String = "",
     content: String = """""",
-    buttons: Set<ToastButtonType> = setOf(ToastButtonType.CLOSE),
-    actions: Set<ToastCommand> = setOf()
+    buttons: List<ToastButtonType> = listOf(ToastButtonType.CLOSE),
+    actions: List<ToastAction> = listOf()
 ) : JPanel() {
     private val titleLabel = JLabel(title).apply {
         this.font = this.font.deriveFont(12f)
@@ -86,54 +79,10 @@ class ToastItem(
     }
 
     private val actionButtons = JPanel().apply {
-        // border = BorderFactory.createLineBorder(Color.RED)
         this.layout = GridLayout(1, actions.size, 2, 2)
 
         for (i in actions) {
-            this.add(when (i) {
-                is ToastSingleCommand -> JLabel(i.text).apply {
-                    addMouseListener(object : MouseAdapter() {
-                        override fun mouseClicked(e: MouseEvent) {
-                            i.command()
-                        }
-                    })
-                }
-                is ToastMultiCommand -> JLabel(i.text).apply {
-                    icon = UIManager.getIcon("Table.descendingSortIcon")
-                    horizontalTextPosition = SwingConstants.LEFT
-
-                    val label = this
-                    addMouseListener(object : MouseAdapter() {
-                        override fun mouseClicked(e: MouseEvent) {
-                            i.menu.show(
-                                label,
-                                e.component.x - e.component.width,
-                                e.component.y + e.component.height
-                            )
-                        }
-                    })
-                }
-                else -> JLabel("What you did doesn't work")
-            }.apply {
-                val originalFont = this.font
-
-                val attributes: MutableMap<*, *> = this.font.attributes
-                (attributes as MutableMap<TextAttribute, Any>)[TextAttribute.UNDERLINE] = TextAttribute.UNDERLINE_ON
-                val underlineFont = this.font.deriveFont(attributes)
-
-                foreground = UIManager.getColor("List.selectionBackground")
-                cursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)
-
-                addMouseListener(object : MouseAdapter() {
-                    override fun mouseEntered(e: MouseEvent) {
-                        e.component.font = underlineFont
-                    }
-
-                    override fun mouseExited(e: MouseEvent) {
-                        e.component.font = originalFont
-                    }
-                })
-            })
+            this.add(i)
         }
     }
 

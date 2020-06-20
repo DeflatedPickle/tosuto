@@ -1,10 +1,11 @@
+import com.deflatedpickle.tosuto.*;
 import com.deflatedpickle.tosuto.api.*;
-import com.deflatedpickle.tosuto.ToastItem;
-import com.deflatedpickle.tosuto.ToastWindow;
-import com.deflatedpickle.tosuto.command.ToastMultiCommand;
-import com.deflatedpickle.tosuto.command.ToastSingleCommand;
+import com.deflatedpickle.tosuto.action.ToastAction;
+import com.deflatedpickle.tosuto.action.ToastMultiAction;
+import com.deflatedpickle.tosuto.action.ToastSingleAction;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,33 +16,33 @@ public class Main {
 
         JFrame frame = new JFrame();
 
-        Set<ToastButtonType> buttonSet = new HashSet<>(
+        ArrayList<ToastButtonType> buttonSet = new ArrayList<>(
                 Collections.singletonList(
                         ToastButtonType.CLOSE
                 )
-        );
-
-        JMenuItem dumbAction = new JMenuItem("Dumb Action");
-        dumbAction.addActionListener(e -> System.out.println("Dumb action invoked!"));
-
-        Set<JMenuItem> actionsSet = new HashSet<>();
-        Collections.addAll(actionsSet,
-                dumbAction
-        );
-
-        Set<ToastCommand> commandSet = new HashSet<>();
-        Collections.addAll(commandSet,
-                new ToastSingleCommand("Fix...", () -> {
-                    System.out.println("Fix invoked!");
-                    return null;
-                }),
-                new ToastMultiCommand("Actions", actionsSet)
         );
 
         // Add the toast window
         ToastWindow toastWindow = new ToastWindow(frame, 140, ToastOrder.ITERATIVE, ToastItemAnchor.SOUTH, ToastWindowAnchor.EAST);
 
         for (ToastLevel toastLevel : ToastLevel.values()) {
+            JMenuItem dumbAction = new JMenuItem("Dumb Action");
+            dumbAction.addActionListener(e -> System.out.println("Dumb action invoked!"));
+
+            ArrayList<JMenuItem> actionsSet = new ArrayList<>();
+            Collections.addAll(actionsSet,
+                    dumbAction
+            );
+
+            ArrayList<ToastAction> commandSet = new ArrayList<>();
+            Collections.addAll(commandSet,
+                    new ToastSingleAction("Fix...", null, () -> {
+                        System.out.println("Fix invoked!");
+                        return null;
+                    }),
+                    new ToastMultiAction("Actions", actionsSet)
+            );
+
             toastWindow.add(new ToastItem(
                     toastLevel,
                     toastLevel.name().substring(0, 1).concat(toastLevel.name().substring(1).toLowerCase()),

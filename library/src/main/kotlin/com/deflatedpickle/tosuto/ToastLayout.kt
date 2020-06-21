@@ -14,10 +14,11 @@ import java.awt.Rectangle
  * A custom layout manager to lay toasts out vertically, from the bottom
  */
 class ToastLayout(
-    private val westMargin: Int = 2,
-    private val northMargin: Int = 2,
-    private val eastMargin: Int = 2,
-    private val southMargin: Int = 2,
+    var spacing: Int = 2,
+    var westMargin: Int = 0,
+    var northMargin: Int = 0,
+    var eastMargin: Int = 0,
+    var southMargin: Int = 0,
     var order: ToastOrder = ToastOrder.ITERATIVE,
     var anchor: ToastItemAnchor = ToastItemAnchor.SOUTH
 ) : LayoutManager {
@@ -50,7 +51,7 @@ class ToastLayout(
         var height = when (this.anchor) {
             ToastItemAnchor.NORTH -> 0
             ToastItemAnchor.SOUTH -> parent.components.foldRight(0, { component, acc ->
-                acc + component.preferredSize.height
+                acc + component.preferredSize.height + spacing
             })
         }
 
@@ -66,15 +67,18 @@ class ToastLayout(
                     ToastItemAnchor.NORTH -> height
                     ToastItemAnchor.SOUTH -> parent.height - height
                 } + northMargin,
-                parent.width - parent.insets.right - eastMargin,
-                comp.preferredSize.height - southMargin
+                parent.width - parent.insets.right - westMargin - eastMargin,
+                when (this.anchor) {
+                    ToastItemAnchor.NORTH ->
+                        comp.preferredSize.height
+                    ToastItemAnchor.SOUTH ->
+                        comp.preferredSize.height - northMargin - southMargin
+                }
             )
 
             when (this.anchor) {
-                ToastItemAnchor.NORTH ->
-                    height += comp.preferredSize.height
-                ToastItemAnchor.SOUTH ->
-                    height -= comp.preferredSize.height
+                ToastItemAnchor.NORTH -> height += comp.preferredSize.height + spacing
+                ToastItemAnchor.SOUTH -> height -= comp.preferredSize.height + spacing
             }
         }
     }

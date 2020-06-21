@@ -117,12 +117,6 @@ class ToastWindow(
         })
     }
 
-    private fun refresh() {
-        this.contentPane.doLayout()
-        this.contentPane.repaint()
-        this.contentPane.revalidate()
-    }
-
     @Suppress("unused")
     fun addToast(toast: ToastItem) {
         this.add(toast)
@@ -141,7 +135,13 @@ class ToastWindow(
         this.refresh()
     }
 
-    private fun locateToParent() {
+    fun refresh() {
+        this.contentPane.doLayout()
+        this.contentPane.repaint()
+        this.contentPane.revalidate()
+    }
+
+    fun locateToParent() {
         this@ToastWindow.location = when (this@ToastWindow.windowAnchor) {
             ToastWindowAnchor.CENTRE -> Point(parent.x + parent.width / 2 - this@ToastWindow.width / 2, parent.y)
             ToastWindowAnchor.EAST -> Point(parent.x + parent.width - this@ToastWindow.width, parent.y)

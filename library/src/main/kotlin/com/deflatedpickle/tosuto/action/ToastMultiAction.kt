@@ -10,20 +10,11 @@ import javax.swing.JPopupMenu
 import javax.swing.SwingConstants
 import javax.swing.UIManager
 
-class ToastMultiAction(
+class ToastMultiAction @JvmOverloads constructor(
     text: String,
     icon: Icon? = UIManager.getIcon("Table.descendingSortIcon"),
     actions: List<JMenuItem>
 ) : ToastAction(text, icon) {
-    constructor(
-        text: String,
-        actions: List<JMenuItem>
-    ) : this(
-        text = text,
-        icon = UIManager.getIcon("Table.descendingSortIcon"),
-        actions = actions
-    )
-
     val menu = JPopupMenu().apply {
         for (i in actions) {
             add(i)

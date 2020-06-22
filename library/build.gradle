@@ -6,7 +6,7 @@ plugins {
 
 group 'com.deflatedpickle'
 archivesBaseName = 'tosuto'
-version '1.6.4'
+version '1.6.5'
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"

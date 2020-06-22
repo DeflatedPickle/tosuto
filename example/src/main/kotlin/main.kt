@@ -33,8 +33,8 @@ fun main(args: Array<String>) {
                         println("Fix invoked!")
                     },
                     ToastMultiAction(
-                        "Actions",
-                        listOf(JMenuItem("Dumb Action"))
+                        text = "Actions",
+                        actions = listOf(JMenuItem("Dumb Action"))
                     )
                 )
             )

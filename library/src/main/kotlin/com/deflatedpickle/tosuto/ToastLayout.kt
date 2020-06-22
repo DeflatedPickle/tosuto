@@ -13,7 +13,7 @@ import java.awt.Rectangle
 /**
  * A custom layout manager to lay toasts out vertically, from the bottom
  */
-class ToastLayout(
+class ToastLayout @JvmOverloads constructor(
     var spacing: Int = 2,
     var westMargin: Int = 0,
     var northMargin: Int = 0,
@@ -22,36 +22,11 @@ class ToastLayout(
     var order: ToastOrder = ToastOrder.ITERATIVE,
     var anchor: ToastItemAnchor = ToastItemAnchor.SOUTH
 ) : LayoutManager {
-    @Suppress("unused")
-    constructor(
-        margin: Int,
-        order: ToastOrder
-    ) : this(
-        westMargin = margin,
-        northMargin = margin,
-        eastMargin = margin,
-        southMargin = margin,
-        order = order
-    )
-
-    @Suppress("unused")
-    constructor(
-        horizontalMargin: Int,
-        verticalMargin: Int,
-        order: ToastOrder
-    ) : this(
-        westMargin = horizontalMargin,
-        northMargin = verticalMargin,
-        eastMargin = horizontalMargin,
-        southMargin = verticalMargin,
-        order = order
-    )
-
     override fun layoutContainer(parent: Container) {
         var height = when (this.anchor) {
             ToastItemAnchor.NORTH -> 0
             ToastItemAnchor.SOUTH -> parent.components.foldRight(0, { component, acc ->
-                acc + component.preferredSize.height + spacing
+                acc + (component.preferredSize.height - northMargin - southMargin) + spacing
             })
         }
 
@@ -70,7 +45,7 @@ class ToastLayout(
                 parent.width - parent.insets.right - westMargin - eastMargin,
                 when (this.anchor) {
                     ToastItemAnchor.NORTH ->
-                        comp.preferredSize.height
+                        comp.preferredSize.height - northMargin - southMargin
                     ToastItemAnchor.SOUTH ->
                         comp.preferredSize.height - northMargin - southMargin
                 }

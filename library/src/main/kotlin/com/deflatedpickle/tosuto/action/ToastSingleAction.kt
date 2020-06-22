@@ -6,7 +6,7 @@ import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import javax.swing.Icon
 
-class ToastSingleAction(
+class ToastSingleAction @JvmOverloads constructor(
     text: String,
     icon: Icon? = null,
     command: () -> Unit

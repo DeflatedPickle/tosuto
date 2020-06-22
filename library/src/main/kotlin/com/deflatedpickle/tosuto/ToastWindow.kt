@@ -20,7 +20,7 @@ import javax.swing.JFrame
  * A [JDialog] to attach to a [JFrame] and hold [ToastItem]s
  * This will overlay it's parent by becoming top-level, until the parent looses focus, then it will stop being top-level.
  */
-class ToastWindow(
+class ToastWindow @JvmOverloads constructor(
     @Suppress("MemberVisibilityCanBePrivate")
     val parent: Frame,
     toastWidth: Int = 140,
@@ -28,17 +28,6 @@ class ToastWindow(
     toastAnchor: ToastItemAnchor = ToastItemAnchor.SOUTH,
     windowAnchor: ToastWindowAnchor = ToastWindowAnchor.EAST
 ) : JDialog(parent) {
-    @Suppress("unused")
-    constructor(
-        parent: Frame
-    ) : this(
-        parent = parent,
-        toastWidth = 140,
-        toastOrder = ToastOrder.ITERATIVE,
-        toastAnchor = ToastItemAnchor.SOUTH,
-        windowAnchor = ToastWindowAnchor.EAST
-    )
-
     var toastWidth = toastWidth
         set(value) {
             this.locateToParent()

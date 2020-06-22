@@ -12,9 +12,9 @@ import com.deflatedpickle.tosuto.constraints.FillVerticalStickEast
 import com.deflatedpickle.tosuto.constraints.FinishLine
 import java.awt.Dimension
 import java.awt.GridBagLayout
-import java.awt.GridLayout
 import java.awt.Image
 import javax.swing.BorderFactory
+import javax.swing.Box
 import javax.swing.BoxLayout
 import javax.swing.ImageIcon
 import javax.swing.JButton
@@ -27,12 +27,39 @@ import javax.swing.border.EmptyBorder
 /**
  * An item to be placed in a [ToastWindow]
  */
-class ToastItem(
+class ToastItem @JvmOverloads constructor(
+    /**
+     * Defines the colour and icon this toast will use
+     *
+     * @see [ToastLevel]
+     */
     level: ToastLevel = ToastLevel.INFO,
+    /**
+     * The text used next to the icon
+     */
     title: String = "",
+    /**
+     * The content under the coloured divider
+     *
+     * This is turned into a HTML string
+     */
     content: String = """""",
+    /**
+     * The buttons used after the title
+     *
+     * @see [ToastButtonType]
+     */
     buttons: List<ToastButtonType> = listOf(ToastButtonType.CLOSE),
-    actions: List<ToastAction> = listOf()
+    /**
+     * The actions this toast will have at the bottom
+     *
+     * @see [ToastAction]
+     */
+    actions: List<ToastAction> = listOf(),
+    /**
+     * The spacing between each action
+     */
+    actionSpacing: Int = 8
 ) : JPanel() {
     private val titleLabel = JLabel(title).apply {
         this.font = this.font.deriveFont(12f)
@@ -80,10 +107,14 @@ class ToastItem(
     }
 
     private val actionButtons = JPanel().apply {
-        this.layout = GridLayout(1, actions.size, 2, 2)
+        this.layout = BoxLayout(this, BoxLayout.X_AXIS)
 
         for (i in actions) {
             this.add(i)
+
+            if (actionSpacing > 0) {
+                this.add(Box.createHorizontalStrut(actionSpacing))
+            }
         }
     }
 

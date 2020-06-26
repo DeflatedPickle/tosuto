@@ -1,7 +1,8 @@
+import com.deflatedpickle.tosuto.TimedToastItem
 import com.deflatedpickle.tosuto.ToastItem
+import com.deflatedpickle.tosuto.ToastWindow
 import com.deflatedpickle.tosuto.action.ToastMultiAction
 import com.deflatedpickle.tosuto.action.ToastSingleAction
-import com.deflatedpickle.tosuto.ToastWindow
 import com.deflatedpickle.tosuto.api.ToastButtonType
 import com.deflatedpickle.tosuto.api.ToastLevel
 import javax.swing.JFrame
@@ -19,14 +20,14 @@ fun main(args: Array<String>) {
     )
 
     // Add the toast window
-    val toastWindow = ToastWindow(frame)
+    val toastWindow = ToastWindow(frame, 160)
 
     for (toastLevel in ToastLevel.values()) {
         toastWindow.add(
             ToastItem(
                 toastLevel,
                 toastLevel.name,
-                "This is the content for it.".repeat(toastLevel.ordinal + 1),
+                "This is the content for it. ".repeat(toastLevel.ordinal + 1),
                 buttonSet,
                 listOf(
                     ToastSingleAction("Fix...", null) {
@@ -40,6 +41,14 @@ fun main(args: Array<String>) {
             )
         )
     }
+
+    toastWindow.add(
+        TimedToastItem(
+            ToastLevel.WARNING,
+            "DESTRUCTION",
+            "THIS TOAST WILL SELF-DESTRUCT"
+        )
+    )
 
     toastWindow.isVisible = true
 

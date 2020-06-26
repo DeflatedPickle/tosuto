@@ -10,6 +10,7 @@ import com.deflatedpickle.tosuto.constraints.FillHorizontal
 import com.deflatedpickle.tosuto.constraints.FillHorizontalFinishLine
 import com.deflatedpickle.tosuto.constraints.FillVerticalStickEast
 import com.deflatedpickle.tosuto.constraints.FinishLine
+import java.awt.Color
 import java.awt.Dimension
 import java.awt.GridBagLayout
 import java.awt.Image
@@ -27,7 +28,7 @@ import javax.swing.border.EmptyBorder
 /**
  * An item to be placed in a [ToastWindow]
  */
-class ToastItem @JvmOverloads constructor(
+open class ToastItem @JvmOverloads constructor(
     /**
      * Defines the colour and icon this toast will use
      *
@@ -121,21 +122,19 @@ class ToastItem @JvmOverloads constructor(
     private val contentLabel = JLabel("<html>$content</html>")
 
     init {
-        add(JPanel().also {
-            this.layout = GridBagLayout()
+        this.layout = GridBagLayout()
 
-            this.border = BorderFactory.createEtchedBorder()
+        this.border = BorderFactory.createEtchedBorder()
 
-            this.add(this.iconLabel)
-            this.add(this.titleLabel, FillHorizontal)
-            this.add(JSeparator(JSeparator.VERTICAL), FillVerticalStickEast)
-            this.add(this.titleBarButtons, FinishLine)
-            this.add(JSeparator(JSeparator.HORIZONTAL).apply {
-                this.background = level.colour.darker()
-                this.foreground = level.colour
-            }, FillBothFinishLine)
-            this.add(this.contentLabel, FillBothFinishLine)
-            this.add(this.actionButtons, FillHorizontalFinishLine)
-        })
+        this.add(this.iconLabel)
+        this.add(this.titleLabel, FillHorizontal)
+        this.add(JSeparator(JSeparator.VERTICAL), FillVerticalStickEast)
+        this.add(this.titleBarButtons, FinishLine)
+        this.add(JSeparator(JSeparator.HORIZONTAL).apply {
+            this.background = level.colour.darker()
+            this.foreground = level.colour
+        }, FillBothFinishLine)
+        this.add(this.contentLabel, FillBothFinishLine)
+        this.add(this.actionButtons, FillHorizontalFinishLine)
     }
 }

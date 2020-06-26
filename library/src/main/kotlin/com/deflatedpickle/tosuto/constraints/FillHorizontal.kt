@@ -7,7 +7,7 @@ import java.awt.GridBagConstraints
 object FillHorizontal : GridBagConstraints() {
     init {
         anchor = NORTH
-        fill = BOTH
+        fill = HORIZONTAL
         weightx = 1.0
     }
 }

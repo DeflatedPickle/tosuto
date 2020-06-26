@@ -23,7 +23,7 @@ public class Main {
         );
 
         // Add the toast window
-        ToastWindow toastWindow = new ToastWindow(frame, 140, ToastOrder.ITERATIVE, ToastItemAnchor.SOUTH, ToastWindowAnchor.EAST);
+        ToastWindow toastWindow = new ToastWindow(frame, 160);
 
         for (ToastLevel toastLevel : ToastLevel.values()) {
             JMenuItem dumbAction = new JMenuItem("Dumb Action");
@@ -46,11 +46,17 @@ public class Main {
             toastWindow.add(new ToastItem(
                     toastLevel,
                     toastLevel.name().substring(0, 1).concat(toastLevel.name().substring(1).toLowerCase()),
-                    String.join("", Collections.nCopies(toastLevel.ordinal() + 1, "This is the content for it.")),
+                    String.join("", Collections.nCopies(toastLevel.ordinal() + 1, "This is the content for it. ")),
                     buttonSet,
                     commandSet
             ));
         }
+
+        toastWindow.add(new TimedToastItem(
+                ToastLevel.WARNING,
+                "DESTRUCTION",
+                "THIS TOAST WILL SELF-DESTRUCT"
+        ));
 
         toastWindow.setVisible(true);
 

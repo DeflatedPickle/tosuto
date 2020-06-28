@@ -128,6 +128,9 @@ class ToastWindow @JvmOverloads constructor(
         this.contentPane.doLayout()
         this.contentPane.repaint()
         this.contentPane.revalidate()
+
+        this.repaint()
+        this.revalidate()
     }
 
     fun locateToParent() {

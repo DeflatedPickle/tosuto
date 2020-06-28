@@ -56,7 +56,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.DeflatedPickle.tosuto:tosuto:1.7.1'
+    implementation 'com.github.DeflatedPickle.tosuto:tosuto:1.7.2'
 }
 ```
 ### Maven
@@ -71,7 +71,7 @@ dependencies {
 <dependency>
     <groupId>com.github.DeflatedPickle.tosuto</groupId>
     <artifactId>tosuto</artifactId>
-    <version>1.7.1</version>
+    <version>1.7.2</version>
 </dependency>
 ```
 
@@ -82,4 +82,4 @@ dependencies {
 ## [Demo](https://github.com/DeflatedPickle/tosuto/tree/master/demo)
 This is an interactive demo, with sliders to change values for the toasts and a button and content widgets to add new toasts.
 
-The demo can be run either through Jitpack with Gradle (or Maven) by changing the tag from `:tosuto:$version` to `:demo:$version` (for Gradle), or by running the Gradle task inside this repository once cloned.
+The demo can be run either through Jitpack with Gradle (or Maven) by changing the tag from `:tosuto:1.7.2` to `:demo:1.7.2` (for Gradle), or by running the Gradle task inside this repository once cloned.

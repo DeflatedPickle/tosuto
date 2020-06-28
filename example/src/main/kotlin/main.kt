@@ -30,8 +30,9 @@ fun main(args: Array<String>) {
                 "This is the content for it. ".repeat(toastLevel.ordinal + 1),
                 buttonSet,
                 listOf(
-                    ToastSingleAction("Fix...", null) {
-                        println("Fix invoked!")
+                    ToastSingleAction("Fix...", null) { action, toast ->
+                        println("Fix invoked with ${action.text} from ${toast.title}!")
+                        toast.close()
                     },
                     ToastMultiAction(
                         text = "Actions",

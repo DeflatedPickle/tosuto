@@ -10,7 +10,6 @@ import com.deflatedpickle.tosuto.constraints.FillHorizontal
 import com.deflatedpickle.tosuto.constraints.FillHorizontalFinishLine
 import com.deflatedpickle.tosuto.constraints.FillVerticalStickEast
 import com.deflatedpickle.tosuto.constraints.FinishLine
-import java.awt.Color
 import java.awt.Dimension
 import java.awt.GridBagLayout
 import java.awt.Image
@@ -34,17 +33,17 @@ open class ToastItem @JvmOverloads constructor(
      *
      * @see [ToastLevel]
      */
-    level: ToastLevel = ToastLevel.INFO,
+    val level: ToastLevel = ToastLevel.INFO,
     /**
      * The text used next to the icon
      */
-    title: String = "",
+    val title: String = "",
     /**
      * The content under the coloured divider
      *
      * This is turned into a HTML string
      */
-    content: String = """""",
+    val content: String = """""",
     /**
      * The buttons used after the title
      *
@@ -94,11 +93,7 @@ open class ToastItem @JvmOverloads constructor(
                     this.maximumSize = Dimension(32, 20)
 
                     addActionListener {
-                        with(this@ToastItem.parent) {
-                            remove(this@ToastItem)
-                            revalidate()
-                            repaint()
-                        }
+                        this@ToastItem.close()
                     }
                 })
             }.apply {
@@ -136,5 +131,16 @@ open class ToastItem @JvmOverloads constructor(
         }, FillBothFinishLine)
         this.add(this.contentLabel, FillBothFinishLine)
         this.add(this.actionButtons, FillHorizontalFinishLine)
+    }
+
+    /**
+     * Closes this toast
+     */
+    fun close() {
+        with(this.parent) {
+            remove(this@ToastItem)
+            revalidate()
+            repaint()
+        }
     }
 }

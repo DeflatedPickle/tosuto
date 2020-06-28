@@ -2,6 +2,7 @@
 
 package com.deflatedpickle.tosuto.action
 
+import com.deflatedpickle.tosuto.ToastItem
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import javax.swing.Icon
@@ -9,12 +10,15 @@ import javax.swing.Icon
 class ToastSingleAction @JvmOverloads constructor(
     text: String,
     icon: Icon? = null,
-    command: () -> Unit
+    command: (action: ToastAction, toast: ToastItem) -> Unit
 ) : ToastAction(text, icon) {
     init {
         addMouseListener(object : MouseAdapter() {
             override fun mouseClicked(e: MouseEvent) {
-                command()
+                command(
+                    this@ToastSingleAction,
+                    e.component.parent.parent as ToastItem
+                )
             }
         })
     }

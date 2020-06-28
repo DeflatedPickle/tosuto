@@ -36,8 +36,9 @@ public class Main {
 
             ArrayList<ToastAction> commandSet = new ArrayList<>();
             Collections.addAll(commandSet,
-                    new ToastSingleAction("Fix...", null, () -> {
-                        System.out.println("Fix invoked!");
+                    new ToastSingleAction("Fix...", null, (action, toastItem) -> {
+                        System.out.println(String.format("Fix invoked with %s from %s!", action.getText(), toastItem.getTitle()));
+                        toastItem.close();
                         return null;
                     }),
                     new ToastMultiAction("Actions", actionsSet)

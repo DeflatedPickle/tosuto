@@ -56,7 +56,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.DeflatedPickle.tosuto:tosuto:1.7.0'
+    implementation 'com.github.DeflatedPickle.tosuto:tosuto:1.7.1'
 }
 ```
 ### Maven
@@ -71,7 +71,7 @@ dependencies {
 <dependency>
     <groupId>com.github.DeflatedPickle.tosuto</groupId>
     <artifactId>tosuto</artifactId>
-    <version>1.7.0</version>
+    <version>1.7.1</version>
 </dependency>
 ```
 

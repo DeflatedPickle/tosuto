@@ -24,6 +24,10 @@
 </p>
 
 <p align="center">
+    <img src="https://hitsofcode.com/github/DeflatedPickle/tosuto">
+</p>
+
+<p align="center">
     <img src="https://sloc.xyz/github/DeflatedPickle/tosuto/?category=blanks">
     <img src="https://sloc.xyz/github/DeflatedPickle/tosuto/?category=code">
     <img src="https://sloc.xyz/github/DeflatedPickle/tosuto/?category=comments">

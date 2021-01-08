@@ -67,6 +67,7 @@ open class ToastItem @JvmOverloads constructor(
 
     private val iconLabel = JLabel(
         ImageIcon(
+            // Crashes on Linux as a GTKStockIcon can't be cast to ImageIcon
             (level.icon as ImageIcon).image.getScaledInstance(
                 titleLabel.font.size,
                 titleLabel.font.size,

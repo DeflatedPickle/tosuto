@@ -1,32 +1,35 @@
 plugins {
     id 'java'
     id 'org.jetbrains.kotlin.jvm' version '1.3.72'
+
+    id 'com.diffplug.gradle.spotless' version '3.27.0'
+}
+apply plugin: 'kotlin'
+apply plugin: 'maven'
+
+group 'com.deflatedpickle'
+archivesBaseName = 'tosuto'
+version '1.7.3'
+sourceCompatibility = 1.8
+
+repositories {
+    jcenter()
+    mavenCentral()
+
+    maven { url 'https://jitpack.io' }
 }
 
-allprojects {
-    repositories {
-        jcenter()
-        mavenCentral()
-
-        maven { url 'https://jitpack.io' }
-    }
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
 
-subprojects {
-    apply plugin: 'kotlin'
-    apply plugin: 'maven'
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier 'sources'
+    from sourceSets.main.allSource
+}
 
-    sourceCompatibility = 1.8
-
-    task sourcesJar(type: Jar, dependsOn: classes) {
-        classifier 'sources'
-        // We only want to publish the library!
-        from project(':library').sourceSets.main.allSource
-    }
-
-    artifacts {
-        archives sourcesJar
-    }
+artifacts {
+    archives sourcesJar
 }
 
 compileKotlin {
@@ -34,4 +37,12 @@ compileKotlin {
 }
 compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+spotless {
+    kotlin {
+        ktlint()
+
+        licenseHeader '/* Copyright (c) $YEAR DeflatedPickle under the MIT license */\n\n'
+    }
 }

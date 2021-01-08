@@ -1,6 +1,6 @@
 rootProject.name = 'tosuto'
 
-include 'library'
+include 'master'
 
 include 'example'
 include 'demo'

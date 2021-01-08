@@ -3,10 +3,14 @@ plugins {
     id 'org.jetbrains.kotlin.jvm'
 }
 
-dependencies {
-    compile project(':library')
+repositories {
+    jcenter()
+}
 
+dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+    compile project(':')
 }
 
 task runJava(type: JavaExec) {

@@ -5,11 +5,11 @@ package com.deflatedpickle.tosuto
 import com.deflatedpickle.tosuto.action.ToastAction
 import com.deflatedpickle.tosuto.api.ToastButtonType
 import com.deflatedpickle.tosuto.api.ToastLevel
-import com.deflatedpickle.tosuto.constraints.FillBothFinishLine
-import com.deflatedpickle.tosuto.constraints.FillHorizontal
-import com.deflatedpickle.tosuto.constraints.FillHorizontalFinishLine
-import com.deflatedpickle.tosuto.constraints.FillVerticalStickEast
-import com.deflatedpickle.tosuto.constraints.FinishLine
+import com.deflatedpickle.undulation.constraints.FillBothFinishLine
+import com.deflatedpickle.undulation.constraints.FillHorizontal
+import com.deflatedpickle.undulation.constraints.FillHorizontalFinishLine
+import com.deflatedpickle.undulation.constraints.FillVerticalStickEast
+import com.deflatedpickle.undulation.constraints.FinishLine
 import java.awt.Dimension
 import java.awt.GridBagLayout
 import java.awt.Image

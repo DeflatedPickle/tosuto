@@ -25,9 +25,9 @@ class ToastLayout @JvmOverloads constructor(
     override fun layoutContainer(parent: Container) {
         var height = when (this.anchor) {
             ToastItemAnchor.NORTH -> 0
-            ToastItemAnchor.SOUTH -> parent.components.foldRight(0, { component, acc ->
+            ToastItemAnchor.SOUTH -> parent.components.foldRight(0) { component, acc ->
                 acc + (component.preferredSize.height - northMargin - southMargin) + spacing
-            })
+            }
         }
 
         val components = when (this.order) {

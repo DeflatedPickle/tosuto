@@ -4,7 +4,7 @@ package com.deflatedpickle.tosuto
 
 import com.deflatedpickle.tosuto.api.ToastButtonType
 import com.deflatedpickle.tosuto.api.ToastLevel
-import com.deflatedpickle.tosuto.constraints.FillHorizontalFinishLine
+import com.deflatedpickle.undulation.constraints.FillHorizontalFinishLine
 import javax.swing.JProgressBar
 import javax.swing.Timer
 

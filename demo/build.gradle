@@ -3,13 +3,16 @@ plugins {
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
+
+    maven { url 'https://jitpack.io' }
+    maven { url 'https://github.com/eugener/oxbow/raw/master/maven/repository' }
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
-    compile project(':')
+    implementation project(':')
 }
 
 task runDemo(type: JavaExec) {

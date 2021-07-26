@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'java-library'
     id 'org.jetbrains.kotlin.jvm' version '1.4.30'
 
     id 'com.diffplug.gradle.spotless' version '3.27.0'
@@ -13,16 +14,17 @@ version '1.7.4'
 sourceCompatibility = 1.8
 
 repositories {
-    jcenter()
     mavenCentral()
 
     maven { url 'https://jitpack.io' }
+    maven { url 'https://github.com/eugener/oxbow/raw/master/maven/repository' }
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
-    implementation 'com.deflatedpickle:undulation'
+    api 'com.deflatedpickle:undulation'
+    api 'org.oxbow:swing-bits:1.0.0-SNAPSHOT'
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {

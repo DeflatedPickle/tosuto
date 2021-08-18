@@ -1,12 +1,13 @@
 /* Copyright (c) 2020 DeflatedPickle under the MIT license */
 
+@file:Suppress("JAVA_MODULE_DOES_NOT_EXPORT_PACKAGE")
+
 package com.deflatedpickle.tosuto.api
 
+import sun.swing.DefaultLookup
 import java.awt.Color
 import javax.swing.Icon
 import javax.swing.JOptionPane
-import javax.swing.UIManager
-import sun.swing.DefaultLookup
 
 val optionPane = JOptionPane()
 

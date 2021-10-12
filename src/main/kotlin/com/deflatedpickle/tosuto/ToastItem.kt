@@ -2,6 +2,7 @@
 
 package com.deflatedpickle.tosuto
 
+import com.deflatedpickle.marvin.util.OSUtil
 import com.deflatedpickle.tosuto.action.ToastAction
 import com.deflatedpickle.tosuto.api.ToastButtonType
 import com.deflatedpickle.tosuto.api.ToastLevel
@@ -65,16 +66,19 @@ open class ToastItem @JvmOverloads constructor(
         this.font = this.font.deriveFont(12f)
     }
 
-    private val iconLabel = JLabel(
-        ImageIcon(
-            // Crashes on Linux as a GTKStockIcon can't be cast to ImageIcon
-            (level.icon as ImageIcon).image.getScaledInstance(
-                titleLabel.font.size,
-                titleLabel.font.size,
-                Image.SCALE_SMOOTH
+    private val iconLabel = when (OSUtil.getOS()) {
+        OSUtil.OS.WINDOWS -> JLabel(
+            ImageIcon(
+                // Crashes on Linux as a GTKStockIcon can't be cast to ImageIcon
+                (level.icon as ImageIcon).image.getScaledInstance(
+                    titleLabel.font.size,
+                    titleLabel.font.size,
+                    Image.SCALE_SMOOTH
+                )
             )
         )
-    ).apply { border = EmptyBorder(4, 4, 4, 8) }
+        else -> JLabel(level.name.toLowerCase().capitalize()).apply { foreground = level.colour }
+    }.apply { border = EmptyBorder(4, 4, 4, 8) }
 
     // A box for action buttons to live in
     private val titleBarButtons = JPanel().apply {

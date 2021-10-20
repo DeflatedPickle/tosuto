@@ -5,8 +5,8 @@ import com.deflatedpickle.tosuto.api.ToastItemAnchor
 import com.deflatedpickle.tosuto.api.ToastLevel
 import com.deflatedpickle.tosuto.api.ToastOrder
 import com.deflatedpickle.tosuto.api.ToastWindowAnchor
-import com.deflatedpickle.tosuto.constraints.FillBothFinishLine
-import com.deflatedpickle.tosuto.constraints.FillHorizontalFinishLine
+import com.deflatedpickle.undulation.constraints.FillBothFinishLine
+import com.deflatedpickle.undulation.constraints.FillHorizontalFinishLine
 import java.awt.GridBagLayout
 import javax.swing.BorderFactory
 import javax.swing.JButton

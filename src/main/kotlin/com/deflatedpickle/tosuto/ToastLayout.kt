@@ -46,6 +46,7 @@ class ToastLayout @JvmOverloads constructor(
                 when (this.anchor) {
                     ToastItemAnchor.NORTH ->
                         comp.preferredSize.height - northMargin - southMargin
+
                     ToastItemAnchor.SOUTH ->
                         comp.preferredSize.height - northMargin - southMargin
                 }
@@ -58,19 +59,15 @@ class ToastLayout @JvmOverloads constructor(
         }
     }
 
-    override fun preferredLayoutSize(parent: Container): Dimension = with(parent.preferredSize) {
+    override fun preferredLayoutSize(parent: Container) =
         Dimension(
-            this.width + westMargin + eastMargin,
-            this.height + northMargin + southMargin
+            parent.width + westMargin + eastMargin,
+            parent.components.foldRight(0) { component, acc ->
+                acc + (component.preferredSize.height - northMargin - southMargin) + spacing
+            } + northMargin + southMargin
         )
-    }
 
-    override fun minimumLayoutSize(parent: Container): Dimension = with(parent.minimumSize) {
-        Dimension(
-            this.width + westMargin + eastMargin,
-            this.height + northMargin + southMargin
-        )
-    }
+    override fun minimumLayoutSize(parent: Container) = preferredLayoutSize(parent)
 
     override fun addLayoutComponent(name: String, comp: Component) {
     }

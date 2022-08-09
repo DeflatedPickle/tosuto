@@ -10,7 +10,7 @@ apply plugin: 'maven-publish'
 
 group 'com.deflatedpickle'
 archivesBaseName = 'tosuto'
-version '1.7.4'
+version '1.7.5'
 sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {

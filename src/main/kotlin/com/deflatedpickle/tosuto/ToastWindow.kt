@@ -6,6 +6,7 @@ import com.deflatedpickle.tosuto.api.ToastItemAnchor
 import com.deflatedpickle.tosuto.api.ToastOrder
 import com.deflatedpickle.tosuto.api.ToastWindowAnchor
 import java.awt.Color
+import java.awt.Component
 import java.awt.Dimension
 import java.awt.Frame
 import java.awt.Point
@@ -98,29 +99,23 @@ open class ToastWindow @JvmOverloads constructor(
             }
 
             override fun componentResized(e: ComponentEvent) {
-                this@ToastWindow.size = Dimension(this@ToastWindow.toastWidth, parent.height)
-                locateToParent()
-
                 this@ToastWindow.refresh()
+                locateToParent()
             }
         })
     }
 
-    @Suppress("unused")
-    fun addToast(toast: ToastItem) {
-        this.add(toast)
+    override fun add(comp: Component): Component = super.add(comp).apply {
+        refresh()
+    }
+
+    override fun remove(comp: Component) {
+        super.remove(comp)
         this.refresh()
     }
 
-    @Suppress("unused")
-    fun removeToast(toast: ToastItem) {
-        this.remove(toast)
-        this.refresh()
-    }
-
-    @Suppress("unused")
-    fun removeToast(toastIndex: Int) {
-        this.remove(toastIndex)
+    override fun remove(index: Int) {
+        super.remove(index)
         this.refresh()
     }
 
@@ -131,13 +126,25 @@ open class ToastWindow @JvmOverloads constructor(
 
         this.repaint()
         this.revalidate()
+
+        this.size = Dimension(this.toastWidth, this.contentPane.preferredSize.height)
+        locateToParent()
     }
 
     fun locateToParent() {
         this@ToastWindow.location = when (this@ToastWindow.windowAnchor) {
-            ToastWindowAnchor.CENTRE -> Point(parent.x + parent.width / 2 - this@ToastWindow.width / 2, parent.y)
-            ToastWindowAnchor.EAST -> Point(parent.x + parent.width - this@ToastWindow.width, parent.y)
-            ToastWindowAnchor.WEST -> Point(parent.x, parent.y)
+            ToastWindowAnchor.CENTRE -> Point(
+                parent.x + parent.width / 2 - this@ToastWindow.width / 2,
+                parent.y + parent.height - this@ToastWindow.height
+            )
+            ToastWindowAnchor.EAST -> Point(
+                parent.x + parent.width - this@ToastWindow.width,
+                parent.y + parent.height - this@ToastWindow.height
+            )
+            ToastWindowAnchor.WEST -> Point(
+                parent.x,
+                parent.y + parent.height - this@ToastWindow.height
+            )
         }
     }
 }

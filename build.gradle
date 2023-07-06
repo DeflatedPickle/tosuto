@@ -9,7 +9,7 @@ apply plugin: 'maven-publish'
 group 'com.deflatedpickle'
 archivesBaseName = 'tosuto'
 version '1.7.5'
-sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = targetCompatibility = '11'
 
 repositories {
     mavenCentral()
@@ -36,10 +36,7 @@ artifacts {
 }
 
 compileKotlin {
-    kotlinOptions.jvmTarget = "1.8"
-}
-compileTestKotlin {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = "11"
 }
 
 spotless {

@@ -42,7 +42,7 @@ open class ToastItem @JvmOverloads constructor(
     /**
      * The content under the coloured divider
      *
-     * This is turned into a HTML string
+     * This is turned into an HTML string
      */
     val content: String = """""",
     /**
@@ -142,7 +142,7 @@ open class ToastItem @JvmOverloads constructor(
      * Closes this toast
      */
     fun close() {
-        with(this.parent) {
+        with(this.topLevelAncestor) {
             remove(this@ToastItem)
             revalidate()
             repaint()

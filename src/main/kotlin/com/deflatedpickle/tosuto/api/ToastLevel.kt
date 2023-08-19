@@ -9,19 +9,17 @@ import java.awt.Color
 import javax.swing.Icon
 import javax.swing.JOptionPane
 
-val optionPane = JOptionPane()
+// dummy instance
+internal val optionPane = JOptionPane()
 
 /**
- * Levels of severity, with colours, to use for [ToastItem]s
- *
- * Colours are based on Log4J loggers
+ * Colour coded levels of severity
  */
 @Suppress("unused")
 enum class ToastLevel(
     val colour: Color,
     val icon: Icon
 ) {
-    // The icon requests had to be changed due to a bug on Linux
     DEBUG(Color.CYAN, DefaultLookup.getIcon(optionPane, optionPane.ui, "OptionPane.questionIcon")),
     INFO(Color.GREEN, DefaultLookup.getIcon(optionPane, optionPane.ui, "OptionPane.informationIcon")),
     WARNING(Color.ORANGE, DefaultLookup.getIcon(optionPane, optionPane.ui, "OptionPane.warningIcon")),
